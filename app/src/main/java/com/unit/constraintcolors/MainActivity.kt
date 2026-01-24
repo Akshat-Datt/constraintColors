@@ -1,6 +1,8 @@
 package com.unit.constraintcolors
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,32 +18,27 @@ import com.unit.constraintcolors.ui.theme.ConstraintColorsTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            ConstraintColorsTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+        setContentView(R.layout.activity_main)
+
+        setListeners()
+    }
+
+    private fun setListeners(){
+        val clickableViews : List<View> = listOf(findViewById<TextView>(R.id.box_one), findViewById<TextView>(R.id.box_two), findViewById<TextView>(R.id.box_three), findViewById<TextView>(R.id.box_four), findViewById<TextView>(R.id.box_five));
+
+        for(item in clickableViews){
+            item.setOnClickListener { makeColored(it) }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+    private fun makeColored(view: View){
+        when(view.id){
+            R.id.box_one -> view.setBackgroundResource(android.R.color.darker_gray)
+            R.id.box_two -> view.setBackgroundResource(android.R.color.holo_blue_light)
+            R.id.box_three -> view.setBackgroundResource(android.R.color.holo_orange_dark)
+            R.id.box_four -> view.setBackgroundResource(android.R.color.holo_green_light)
+            R.id.box_five -> view.setBackgroundResource(android.R.color.holo_red_light)
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ConstraintColorsTheme {
-        Greeting("Android")
+        }
     }
 }
