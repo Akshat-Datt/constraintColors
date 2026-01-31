@@ -14,18 +14,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.databinding.DataBindingUtil
+import com.unit.constraintcolors.databinding.ActivityMainBinding
 import com.unit.constraintcolors.ui.theme.ConstraintColorsTheme
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setListeners()
     }
 
     private fun setListeners(){
-        val clickableViews : List<View> = listOf(findViewById<TextView>(R.id.box_one), findViewById<TextView>(R.id.box_two), findViewById<TextView>(R.id.box_three), findViewById<TextView>(R.id.box_four), findViewById<TextView>(R.id.box_five), findViewById<Button>(R.id.red_btn), findViewById<Button>(R.id.green_btn), findViewById<Button>(R.id.yellow_btn));
+        val clickableViews : List<View> = listOf(binding.boxOne, binding.boxTwo, binding.boxThree, binding.boxFour, binding.boxFive, binding.redBtn, binding.greenBtn, binding.yellowBtn);
 
         for(item in clickableViews){
             item.setOnClickListener { makeColored(it) }
@@ -39,9 +45,9 @@ class MainActivity : ComponentActivity() {
             R.id.box_three -> view.setBackgroundResource(android.R.color.holo_orange_dark)
             R.id.box_four -> view.setBackgroundResource(android.R.color.holo_green_light)
             R.id.box_five -> view.setBackgroundResource(android.R.color.holo_purple)
-            R.id.red_btn -> findViewById<TextView>(R.id.box_three).setBackgroundResource(R.color.my_red)
-            R.id.green_btn -> findViewById<TextView>(R.id.box_four).setBackgroundResource(R.color.my_green)
-            R.id.yellow_btn -> findViewById<TextView>(R.id.box_five).setBackgroundResource(R.color.my_yellow)
+            R.id.red_btn -> binding.boxThree.setBackgroundResource(R.color.my_red)
+            R.id.green_btn -> binding.boxFour.setBackgroundResource(R.color.my_green)
+            R.id.yellow_btn -> binding.boxFive.setBackgroundResource(R.color.my_yellow)
 
         }
     }
